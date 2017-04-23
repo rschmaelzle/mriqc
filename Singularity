@@ -9,5 +9,5 @@ From:poldracklab/fmriprep:latest
 echo "This gets run when you run the image!" cd /code exec echo "Hello" "$@"
 
 %post
-# create /seastor for server directory binding
-mkdir -p /seastor
+# use /etc/singularity/singularity.conf file to bind our server directory to image
+# set enable overlay = yes and use bind dir = /seastor
