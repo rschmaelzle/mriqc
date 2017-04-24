@@ -60,7 +60,7 @@ export ANTSPATH=/opt/ants
 export PATH=$ANTSPATH:$PATH
 
 #C3D
-export C3DPATH /opt/c3d/
+export C3DPATH=/opt/c3d/
 export PATH=$C3DPATH:$PATH
 
 # Miniconda
