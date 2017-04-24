@@ -12,8 +12,8 @@ exec /usr/local/miniconda/bin/fmriprep "$@"
 %post
 
 # fix any possible permission issue, from docker2singularity.sh code
-chmod +x /usr/local/miniconda/bin/fmriprep
-#find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
+#chmod +x /usr/local/miniconda/bin/fmriprep
+find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
 
 # add environment
 echo "
