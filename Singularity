@@ -21,7 +21,7 @@ echo "
 # FreeSurfer
 export FSL_DIR=/usr/share/fsl/5.0
 export OS=Linux
-exoprt FS_OVERRIDE=0
+export FS_OVERRIDE=0
 export FIX_VERTEX_AREA=
 export FSF_OUTPUT_FORMAT=nii.gz
 export FREESURFER_HOME=/opt/freesurfer
@@ -56,7 +56,7 @@ export AFNI_PLUGINPATH=/usr/lib/afni/plugins
 export PATH=/usr/lib/afni/bin:$PATH
 
 # ANTs
-export ANTSPATH /opt/ants
+export ANTSPATH=/opt/ants
 export PATH=$ANTSPATH:$PATH
 
 #C3D
