@@ -142,4 +142,3 @@ export CRN_SHARED_DATA=/niworkflows_data
 #------------------------------------------------------------------------------
 # use /etc/singularity/singularity.conf file to bind our server directory to image
 # set enable overlay = yes and use bind dir = /seastor
-# mkdir -p /seastor
