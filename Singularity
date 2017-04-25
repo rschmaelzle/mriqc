@@ -2,7 +2,7 @@
 # used in CBLS server
 # created by Zhifang Ye <zhifang.ye.fghm@gmail.com>
 # 25/4/2017
-# build size padding to 80000
+# build size padding to 16000
 
 BootStrap:docker
 From:poldracklab/fmriprep:latest
