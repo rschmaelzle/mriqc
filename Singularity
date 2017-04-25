@@ -8,124 +8,77 @@ BootStrap:docker
 From:poldracklab/fmriprep:latest
 
 %runscript
-
-exec /usr/local/miniconda/bin/fmriprep "$@"
+  exec /usr/local/miniconda/bin/fmriprep "$@"
 
 %post
+  ## fix any possible permission issue, from docker2singularity.sh code
+  find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
+  ## mounting directory
+  # use /etc/singularity/singularity.conf file to bind our server directory to image
+  # set enable overlay = yes and use bind dir = /seastor
 
-## fix any possible permission issue, from docker2singularity.sh code
-find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
+%environment
+  # FreeSurfer
+  FSL_DIR=/usr/share/fsl/5.0
+  OS=Linux
+  FS_OVERRIDE=0
+  FIX_VERTEX_AREA=
+  FSF_OUTPUT_FORMAT=nii.gz
+  FREESURFER_HOME=/opt/freesurfer
+  SUBJECTS_DIR=$FREESURFER_HOME/subjects
+  FUNCTIONALS_DIR=$FREESURFER_HOME/sessions
+  MNI_DIR=$FREESURFER_HOME/mni
+  LOCAL_DIR=$FREESURFER_HOME/local
+  FSFAST_HOME=$FREESURFER_HOME/fsfast
+  MINC_BIN_DIR=$FREESURFER_HOME/mni/bin
+  MINC_LIB_DIR=$FREESURFER_HOME/mni/lib
+  MNI_DATAPATH=$FREESURFER_HOME/mni/data
+  FMRI_ANALYSIS_DIR=$FREESURFER_HOME/fsfast
+  PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
+  MNI_PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
+  PATH=$FREESURFER_HOME/bin:$FSFAST_HOME/bin:$FREESURFER_HOME/tktools:$MINC_BIN_DIR:$PATH
+  export PATH FSL_DIR OS FS_OVERRIDE FIX_VERTEX_AREA FSF_OUTPUT_FORMAT FREESURFER_HOME SUBJECTS_DIR FUNCTIONALS_DIR MNI_DIR LOCAL_DIR FSFAST_HOME MINC_BIN_DIR MINC_LIB_DIR MNI_DATAPATH FMRI_ANALYSIS_DIR PERL5LIB MNI_PERL5LIB
 
-## setup environment variables
-# FreeSurfer
-export FSL_DIR=/usr/share/fsl/5.0
-export OS=Linux
-export FS_OVERRIDE=0
-export FIX_VERTEX_AREA=
-export FSF_OUTPUT_FORMAT=nii.gz
-export FREESURFER_HOME=/opt/freesurfer
-export SUBJECTS_DIR=$FREESURFER_HOME/subjects
-export FUNCTIONALS_DIR=$FREESURFER_HOME/sessions
-export MNI_DIR=$FREESURFER_HOME/mni
-export LOCAL_DIR=$FREESURFER_HOME/local
-export FSFAST_HOME=$FREESURFER_HOME/fsfast
-export MINC_BIN_DIR=$FREESURFER_HOME/mni/bin
-export MINC_LIB_DIR=$FREESURFER_HOME/mni/lib
-export MNI_DATAPATH=$FREESURFER_HOME/mni/data
-export FMRI_ANALYSIS_DIR=$FREESURFER_HOME/fsfast
-export PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
-export MNI_PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
-export PATH=$FREESURFER_HOME/bin:$FSFAST_HOME/bin:$FREESURFER_HOME/tktools:$MINC_BIN_DIR:$PATH
-# FSL
-export FSLDIR=/usr/share/fsl/5.0
-export FSLOUTPUTTYPE=NIFTI_GZ
-export FSLMULTIFILEQUIT=TRUE
-export POSSUMDIR=/usr/share/fsl/5.0
-export LD_LIBRARY_PATH=/usr/lib/fsl/5.0:$LD_LIBRARY_PATH
-export FSLTCLSH=/usr/bin/tclsh
-export FSLWISH=/usr/bin/wish
-export PATH=/usr/lib/fsl/5.0:$PATH
-# AFNI
-export AFNI_MODELPATH=/usr/lib/afni/models
-export AFNI_IMSAVE_WARNINGS=NO
-export AFNI_TTATLAS_DATASET=/usr/share/afni/atlases
-export AFNI_PLUGINPATH=/usr/lib/afni/plugins
-export PATH=/usr/lib/afni/bin:$PATH
-# ANTs
-export ANTSPATH=/opt/ants
-export PATH=$ANTSPATH:$PATH
-#C3D
-export C3DPATH=/opt/c3d/
-export PATH=$C3DPATH:$PATH
-# Miniconda
-export PATH=/usr/local/miniconda/bin:$PATH
-export LANG=C.UTF-8
-export LC_ALL=C.UTF-8
-# Others
-export MKL_NUM_THREADS=1
-export OMP_NUM_THREADS=1
-export CRN_SHARED_DATA=/niworkflows_data
+  # FSL
+  FSLDIR=/usr/share/fsl/5.0
+  FSLOUTPUTTYPE=NIFTI_GZ
+  FSLMULTIFILEQUIT=TRUE
+  POSSUMDIR=/usr/share/fsl/5.0
+  LD_LIBRARY_PATH=/usr/lib/fsl/5.0:$LD_LIBRARY_PATH
+  FSLTCLSH=/usr/bin/tclsh
+  FSLWISH=/usr/bin/wish
+  PATH=/usr/lib/fsl/5.0:$PATH
+  export PATH FSLDIR FSLOUTPUTTYPE FSLMULTIFILEQUIT POSSUMDIR LD_LIBRARY_PATH FSLTCLSH FSLWISH
 
-# add environment variables to environment file
-echo "
+  # AFNI
+  AFNI_MODELPATH=/usr/lib/afni/models
+  AFNI_IMSAVE_WARNINGS=NO
+  AFNI_TTATLAS_DATASET=/usr/share/afni/atlases
+  AFNI_PLUGINPATH=/usr/lib/afni/plugins
+  PATH=/usr/lib/afni/bin:$PATH
+  export PATH AFNI_MODELPATH AFNI_IMSAVE_WARNINGS AFNI_TTATLAS_DATASET AFNI_PLUGINPATH
 
-# FreeSurfer
-export FSL_DIR=/usr/share/fsl/5.0
-export OS=Linux
-export FS_OVERRIDE=0
-export FIX_VERTEX_AREA=
-export FSF_OUTPUT_FORMAT=nii.gz
-export FREESURFER_HOME=/opt/freesurfer
-export SUBJECTS_DIR=$FREESURFER_HOME/subjects
-export FUNCTIONALS_DIR=$FREESURFER_HOME/sessions
-export MNI_DIR=$FREESURFER_HOME/mni
-export LOCAL_DIR=$FREESURFER_HOME/local
-export FSFAST_HOME=$FREESURFER_HOME/fsfast
-export MINC_BIN_DIR=$FREESURFER_HOME/mni/bin
-export MINC_LIB_DIR=$FREESURFER_HOME/mni/lib
-export MNI_DATAPATH=$FREESURFER_HOME/mni/data
-export FMRI_ANALYSIS_DIR=$FREESURFER_HOME/fsfast
-export PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
-export MNI_PERL5LIB=$MINC_LIB_DIR/perl5/5.8.5
-export PATH=$FREESURFER_HOME/bin:$FSFAST_HOME/bin:$FREESURFER_HOME/tktools:$MINC_BIN_DIR:$PATH
+  # ANTs
+  ANTSPATH=/opt/ants
+  PATH=$ANTSPATH:$PATH
+  export PATH ANTSPATH
 
-# FSL
-export FSLDIR=/usr/share/fsl/5.0
-export FSLOUTPUTTYPE=NIFTI_GZ
-export FSLMULTIFILEQUIT=TRUE
-export POSSUMDIR=/usr/share/fsl/5.0
-export LD_LIBRARY_PATH=/usr/lib/fsl/5.0:$LD_LIBRARY_PATH
-export FSLTCLSH=/usr/bin/tclsh
-export FSLWISH=/usr/bin/wish
-export PATH=/usr/lib/fsl/5.0:$PATH
+  #C3D
+  C3DPATH=/opt/c3d/
+  PATH=$C3DPATH:$PATH
+  export PATH C3DPATH
 
-# AFNI
-export AFNI_MODELPATH=/usr/lib/afni/models
-export AFNI_IMSAVE_WARNINGS=NO
-export AFNI_TTATLAS_DATASET=/usr/share/afni/atlases
-export AFNI_PLUGINPATH=/usr/lib/afni/plugins
-export PATH=/usr/lib/afni/bin:$PATH
+  # Miniconda
+  PATH=/usr/local/miniconda/bin:$PATH
+  export PATH
 
-# ANTs
-export ANTSPATH=/opt/ants
-export PATH=$ANTSPATH:$PATH
+  # Others
+  LANG=C.UTF-8
+  LC_ALL=C.UTF-8
+  MKL_NUM_THREADS=1
+  OMP_NUM_THREADS=1
+  CRN_SHARED_DATA=/niworkflows_data
+  export LANG LC_ALL MKL_NUM_THREADS OMP_NUM_THREADS CRN_SHARED_DATA
 
-#C3D
-export C3DPATH=/opt/c3d/
-export PATH=$C3DPATH:$PATH
-
-# Miniconda
-export PATH=/usr/local/miniconda/bin:$PATH
-export LANG=C.UTF-8
-export LC_ALL=C.UTF-8
-
-# Others
-export MKL_NUM_THREADS=1
-export OMP_NUM_THREADS=1
-export CRN_SHARED_DATA=/niworkflows_data
-
-" >> /environment
-
-## mounting directory
-# use /etc/singularity/singularity.conf file to bind our server directory to image
-# set enable overlay = yes and use bind dir = /seastor
+%test
+  /usr/local/miniconda/bin/fmriprep -h
