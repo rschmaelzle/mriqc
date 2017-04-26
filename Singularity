@@ -66,7 +66,7 @@ From:poldracklab/fmriprep:latest
 
   #C3D
   C3DPATH=/opt/c3d/
-  PATH=$C3DPATH:$PATH
+  PATH=$C3DPATH/bin:$PATH
   export PATH C3DPATH
 
   # Miniconda
