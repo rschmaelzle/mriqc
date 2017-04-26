@@ -80,6 +80,3 @@ From:poldracklab/fmriprep:latest
   OMP_NUM_THREADS=1
   CRN_SHARED_DATA=/niworkflows_data
   export LANG LC_ALL MKL_NUM_THREADS OMP_NUM_THREADS CRN_SHARED_DATA
-
-%test
-  /usr/local/miniconda/bin/fmriprep -h
