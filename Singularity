@@ -11,12 +11,17 @@ From:poldracklab/fmriprep:latest
   exec /usr/local/miniconda/bin/fmriprep "$@"
 
 %post
-  ## fix any possible permission issue, from docker2singularity.sh code
+  # fix any possible permission issue, from docker2singularity.sh code
   find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
   find / -executable -perm -u+x,o-x -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+x '{}' \;
-  ## mounting directory
-  # use /etc/singularity/singularity.conf file to bind our server directory to image
-  # set enable overlay = yes and use bind dir = /seastor
+
+  # change timezone to Shanghai
+  ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+  dpkg-reconfigure --frontend noninteractive tzdata
+
+  # mounting directory
+  #use /etc/singularity/singularity.conf file to bind our server directory to image
+  #set enable overlay = yes and use bind dir = /seastor
 
 %environment
   # FreeSurfer
