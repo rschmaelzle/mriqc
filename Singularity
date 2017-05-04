@@ -1,7 +1,7 @@
 # fmriprep from poldracklab
 # used in CBLS server
 # created by Zhifang Ye <zhifang.ye.fghm@gmail.com>
-# 25/4/2017
+# version 0.4.2
 # build size padding to 16000
 
 BootStrap:docker
