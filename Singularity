@@ -19,9 +19,10 @@ From:poldracklab/fmriprep:latest
   ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
   dpkg-reconfigure --frontend noninteractive tzdata
 
-  # mounting directory
-  #use /etc/singularity/singularity.conf file to bind our server directory to image
-  #set enable overlay = yes and use bind dir = /seastor
+  # fix missing libGL.so.1
+  apt-get update
+  apt-get install -y libgl1-mesa-glx
+  apt-get clean -y
 
 %environment
   # FreeSurfer
