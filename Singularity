@@ -25,7 +25,7 @@ Version 0.5.2
 #------------------------------------------------------------------------------
 find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
 find / -executable -perm -u+x,o-x -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+x '{}' \;
-# chmod +x /usr/local/miniconda/bin/*
+#chmod +x /usr/local/miniconda/bin/*
 #------------------------------------------------------------------------------
 # Change timezone to Shanghai
 #------------------------------------------------------------------------------
