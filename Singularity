@@ -7,15 +7,11 @@ From: poldracklab/fmriprep:latest
 %runscript
     exec /usr/local/miniconda/bin/fmriprep "$@"
 
-%labels
-Maintainer zhifang.ye.fghm@gmail.com
-Version 0.5.2
-
 #%environment
 
 %labels
 Author zhifang.ye.fghm@gmail.com
-Build-date 2/7/2017
+Build-date 3/7/2017
 Vendor Ubuntu
 Version 0.5.2
 
