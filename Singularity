@@ -7,7 +7,10 @@ From: poldracklab/fmriprep:latest
 %runscript
     exec /usr/local/miniconda/bin/fmriprep "$@"
 
-#%environment
+%environment
+export LC_ALL=en_US.UTF-8 \
+       LANG=en_US.UTF-8 \
+       LANGUAGE=en_US.UTF-8
 
 %labels
 Author zhifang.ye.fghm@gmail.com
@@ -21,15 +24,12 @@ Version 0.5.2
 #------------------------------------------------------------------------------
 find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
 find / -executable -perm -u+x,o-x -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+x '{}' \;
-#chmod +x /usr/local/miniconda/bin/*
 #------------------------------------------------------------------------------
 # Change timezone to Shanghai
 #------------------------------------------------------------------------------
 ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
 #------------------------------------------------------------------------------
-# Fix missing libGL.so.1
+# Fix shared library libGL.so.1
 #------------------------------------------------------------------------------
-#apt-get update
-#apt-get install -y libgl1-mesa-glx
-#apt-get clean -y
+ln -s /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so.1
