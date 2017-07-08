@@ -8,13 +8,10 @@ From: poldracklab/fmriprep:latest
     exec /usr/local/miniconda/bin/fmriprep "$@"
 
 %environment
-export LC_ALL=en_US.UTF-8 \
-       LANG=en_US.UTF-8 \
-       LANGUAGE=en_US.UTF-8
 
 %labels
 Author zhifang.ye.fghm@gmail.com
-Build-date 3/7/2017
+Build-date 8/7/2017
 Vendor Ubuntu
 Version 0.5.2
 
