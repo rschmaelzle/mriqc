@@ -26,3 +26,7 @@ find / -executable -perm -u+x,o-x -not -path '/dev*' -not -path '/proc*' -not -p
 #------------------------------------------------------------------------------
 ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 dpkg-reconfigure --frontend noninteractive tzdata
+#------------------------------------------------------------------------------
+# Fix shared library libGL.so.1
+#------------------------------------------------------------------------------
+ln -s /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so.1
