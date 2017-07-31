@@ -11,9 +11,9 @@ From: poldracklab/fmriprep:latest
 
 %labels
 Author zhifang.ye.fghm@gmail.com
-Build-date 20/7/2017
+Build-date 1/8/2017
 Vendor Ubuntu:Xenial
-Version 0.5.4
+Version 0.6.0
 
 %post
 #------------------------------------------------------------------------------
