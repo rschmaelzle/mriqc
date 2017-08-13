@@ -1,5 +1,4 @@
 # fmriprep from poldracklab
-# build size padding to 16000
 
 BootStrap: docker
 From: poldracklab/fmriprep:latest
@@ -11,9 +10,9 @@ From: poldracklab/fmriprep:latest
 
 %labels
 Author zhifang.ye.fghm@gmail.com
-Build-date 1/8/2017
+Build-date 13/8/2017
 Vendor Ubuntu:Xenial
-Version 0.6.0
+Version 1.0.0-rc2
 
 %post
 #------------------------------------------------------------------------------
