@@ -1,7 +1,7 @@
 # FMRIPREP from poldracklab
 
 BootStrap: docker
-From: poldracklab/fmriprep:latest
+From: poldracklab/fmriprep:1.0.0-rc8
 
 %runscript
     exec /usr/local/miniconda/bin/fmriprep "$@"
@@ -16,10 +16,10 @@ Version 1.0.0-rc8
 
 %post
     #------------------------------------------------------------------------------
-    # Fix possible permission issue, from docker2singularity.sh code
+    # Fix possible permission issue
     #------------------------------------------------------------------------------
-    #find /* -maxdepth 0 -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+r -R '{}' \;
-    #find / -executable -perm -u+x,o-x -not -path '/dev*' -not -path '/proc*' -not -path '/sys*' -exec chmod a+x '{}' \;
+    chmod -R a+rX /usr/local/miniconda
+    chmod +x /usr/local/miniconda/bin/*
     #------------------------------------------------------------------------------
     # Change timezone to Shanghai
     #------------------------------------------------------------------------------
