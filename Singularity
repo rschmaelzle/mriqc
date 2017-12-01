@@ -1,7 +1,7 @@
 # FMRIPREP from poldracklab
 
 BootStrap: docker
-From: poldracklab/fmriprep:1.0.0-rc9
+From: poldracklab/fmriprep:1.0.0-rc12
 
 %runscript
     exec /usr/local/miniconda/bin/fmriprep "$@"
@@ -10,9 +10,9 @@ From: poldracklab/fmriprep:1.0.0-rc9
 
 %labels
 Author zhifang.ye.fghm@gmail.com
-Build-date 3/11/2017
+Build-date 1/12/2017
 Vendor Ubuntu:Xenial
-Version 1.0.0-rc9
+Version 1.0.0-rc12
 
 %post
     #------------------------------------------------------------------------------
@@ -25,7 +25,3 @@ Version 1.0.0-rc9
     #------------------------------------------------------------------------------
     ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
     dpkg-reconfigure --frontend noninteractive tzdata
-    #------------------------------------------------------------------------------
-    # Fix shared library libGL.so.1
-    #------------------------------------------------------------------------------
-    #ln -s /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so.1
