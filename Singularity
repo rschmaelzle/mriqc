@@ -3,6 +3,7 @@
 BootStrap: docker
 From: poldracklab/fmriprep:1.0.0-rc13
 
+%post
 ################################################################################
 # Install additional login shells for users that need them
 ################################################################################
