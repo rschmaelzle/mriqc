@@ -15,6 +15,7 @@ yum -y install tcsh ksh zsh
 ################################################################################
 mkdir -p /mnt/home
 mkdir -p /mnt/research
+mkdir -p /mnt/research/schmaelzlelab
 mkdir -p /mnt/dfs17
 mkdir -p /mnt/ffs17
 mkdir -p /mnt/local
