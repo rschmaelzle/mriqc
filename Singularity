@@ -3,25 +3,35 @@
 BootStrap: docker
 From: poldracklab/fmriprep:1.0.0-rc13
 
+################################################################################
+# Install additional login shells for users that need them
+################################################################################
+yum -y install tcsh ksh zsh
+ 
+################################################################################
+# Install additional packages
+################################################################################
+yum -y install vim
+ 
+################################################################################
+# Create directories to enable access to common HPCC mount points
+################################################################################
+mkdir -p /mnt/home
+mkdir -p /mnt/research
+mkdir -p /mnt/dfs17
+mkdir -p /mnt/ffs17
+mkdir -p /mnt/local
+mkdir -p /mnt/ls15
+mkdir -p /opt/software
+ 
+################################################################################
+# Run the user's login shell, or a user specified command
+################################################################################
 %runscript
-    exec /usr/local/miniconda/bin/fmriprep "$@"
-
-%environment
-
-%labels
-Author zhifang.ye.fghm@gmail.com
-Build-date 3/12/2017
-Vendor Ubuntu:Xenial
-Version 1.0.0-rc13
-
-%post
-    #------------------------------------------------------------------------------
-    # Fix possible permission issue
-    #------------------------------------------------------------------------------
-    chmod -R a+rX /usr/local/miniconda
-    chmod +x /usr/local/miniconda/bin/*
-    #------------------------------------------------------------------------------
-    # Change timezone to Shanghai
-    #------------------------------------------------------------------------------
-    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-    dpkg-reconfigure --frontend noninteractive tzdata
+SHELL="$(getent passwd $USER | awk -F: '{print $NF}')"
+SHELL=${SHELL:-/bin/bash}
+if [[ "$@" == "" ]]; then
+  exec env -i TERM="$TERM" HOME="$HOME" $SHELL -l
+else
+  exec env -i TERM="$TERM" HOME="$HOME" $@
+fi
