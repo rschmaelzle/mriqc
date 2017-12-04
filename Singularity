@@ -5,13 +5,6 @@ From: poldracklab/fmriprep:1.0.0-rc13
 
 %post
 ################################################################################
-# Install additional login shells for users that need them
-################################################################################
-yum -y install tcsh ksh zsh
- 
-
- 
-################################################################################
 # Create directories to enable access to common HPCC mount points
 ################################################################################
 mkdir -p /mnt/home
