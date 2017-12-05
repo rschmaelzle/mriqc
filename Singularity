@@ -16,4 +16,5 @@ mkdir -p /mnt/local
 mkdir -p /mnt/ls15
 mkdir -p /opt/software
 mkdir -p /mnt/home/schmaelz
+mkdir -p /mnt/veiled
  
